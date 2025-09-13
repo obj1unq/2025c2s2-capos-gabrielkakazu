@@ -3,6 +3,7 @@ object rolando {
     var property capacidadMochila = 2
     //var inmueble = castilloPiedra
     const agenda = []
+    var property poderBase = 5
 
     method agenda() {return agenda}
 
@@ -42,6 +43,17 @@ object rolando {
         return self.posee().contains(objeto)
     }
 
+    method poder() {
+        return self.poderBase() 
+            + mochila.sum({artefacto => 
+                artefacto.aportePoder(self)})
+    }
+
+    method batalla() {
+        mochila.forEach({artefacto => artefacto.usar()})
+        poderBase += 1
+    }
+
 }
 
 // LUGAR
@@ -56,17 +68,60 @@ object castilloPiedra{
 
 // ARTEFACTOS
 object espadaDestino{
+    var usos = 0
 
-}
+    method usos() {return usos}
 
-object libroHechizos{
+    method usar() {
+        usos += 1
+    }
+
+    method aportePoder(usuario) {
+        return if (usos == 0) {
+            usuario.poderBase()
+            } else {
+                usuario.poderBase() / 2
+            }
+    }
 
 }
 
 object collarDivino{
+    var usos = 0
+
+    method usos() {return usos}
+
+    method usar() {
+        usos += 1
+    }
+
+    method aportePoder(usuario) {
+        if (usuario.poderBase() > 6 ) {
+            return 3 + self.usos()
+        } else {
+            return 3
+        }
+
+    }
 
 }
 
 object armaduraValyria{
+    var usos = 0
+
+    method usos() {return usos}
+
+    method usar() {
+        usos += 1
+    }
+
+    method aportePoder(usuario) {
+        return 6
+    }
+
+
+}
+
+object libroHechizos{
 
 }

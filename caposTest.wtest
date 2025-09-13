@@ -44,6 +44,37 @@ describe "Tests Ejercicio 1"{
         assert.equals(collarDivino, rolando.agenda().get(2))
         assert.equals(armaduraValyria, rolando.agenda().get(3))
         assert.equals(collarDivino, rolando.agenda().get(4))
-        console.println(rolando.agenda())
+        console.println("rolando se encontró con" + rolando.agenda())
     }
+
+    
+}
+
+describe "Ejercicio 2 mensajes con bloques" {
+  test "2.1 comportamiento de los artefactos" {
+    rolando.poderBase(5)
+    rolando.capacidadMochila(3)
+    rolando.encuentra(espadaDestino)
+    rolando.encuentra(armaduraValyria)
+    rolando.encuentra(collarDivino)
+    //1era batalla
+    rolando.batalla()
+    assert.equals(6, rolando.poderBase())
+    assert.equals(3, espadaDestino.aportePoder(rolando))
+    assert.equals(6, armaduraValyria.aportePoder(rolando))
+    assert.equals(3, collarDivino.aportePoder(rolando))
+    //2da batalla
+    rolando.batalla()
+    assert.equals(7, rolando.poderBase())
+    assert.equals(3.5, espadaDestino.aportePoder(rolando))
+    assert.equals(6, armaduraValyria.aportePoder(rolando))
+    assert.equals(5, collarDivino.aportePoder(rolando))
+    //3era batalla
+    rolando.batalla()
+    assert.equals(8, rolando.poderBase())
+    assert.equals(4, espadaDestino.aportePoder(rolando))
+    assert.equals(6, armaduraValyria.aportePoder(rolando))
+    assert.equals(6, collarDivino.aportePoder(rolando))
+
+  }
 }
