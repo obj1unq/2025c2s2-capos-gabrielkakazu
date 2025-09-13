@@ -10,4 +10,16 @@ describe "Tests Ejercicio 1"{
         assert.notThat(rolando.tiene(collarDivino))
         console.println("rolando tiene" + rolando.mochila())
     }
+
+    test "1.2 Castillo de piedra" {
+        rolando.encuentra(espadaDestino)
+        rolando.encuentra(libroHechizos)
+        rolando.llegaA(castilloPiedra)
+        assert.equals(#{espadaDestino, libroHechizos}, castilloPiedra.arcas())
+        assert.that(rolando.mochila().isEmpty())
+        rolando.encuentra(collarDivino)
+        assert.that(rolando.tiene(collarDivino))
+        rolando.llegaA(castilloPiedra)
+        assert.equals(#{espadaDestino, libroHechizos, collarDivino}, castilloPiedra.arcas())
+    }
 }

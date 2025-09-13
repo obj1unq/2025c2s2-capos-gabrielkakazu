@@ -23,6 +23,22 @@ object rolando {
         return mochila.contains(artefacto)
     }
 
+    method llegaA(locacion){
+        self.mochila().forEach{objeto =>
+            locacion.incorpora(objeto)
+            self.mochila().remove(objeto)}
+    }
+
+}
+
+// LUGAR
+object castilloPiedra{
+    const arcas = #{}
+    method arcas() {return arcas}
+
+    method incorpora(artefacto) {
+        arcas.add(artefacto)
+    }
 }
 
 // ARTEFACTOS
