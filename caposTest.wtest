@@ -22,4 +22,28 @@ describe "Tests Ejercicio 1"{
         rolando.llegaA(castilloPiedra)
         assert.equals(#{espadaDestino, libroHechizos, collarDivino}, castilloPiedra.arcas())
     }
+
+    test "1.3 posesiones de Rolando" {
+        castilloPiedra.incorpora(collarDivino)
+        castilloPiedra.incorpora(espadaDestino)
+        rolando.encuentra(armaduraValyria)
+        assert.equals(#{collarDivino, espadaDestino, armaduraValyria}, 
+                    rolando.posee())
+        assert.equals(3, rolando.posee().size())
+    }
+
+    test "1.4 historia de encuentros" {
+        rolando.encuentra(espadaDestino)
+        rolando.encuentra(libroHechizos)
+        rolando.encuentra(collarDivino)
+        rolando.llegaA(castilloPiedra)
+        rolando.encuentra(armaduraValyria)
+        rolando.encuentra(collarDivino)
+        assert.equals(espadaDestino, rolando.agenda().first())
+        assert.equals(libroHechizos, rolando.agenda().get(1))
+        assert.equals(collarDivino, rolando.agenda().get(2))
+        assert.equals(armaduraValyria, rolando.agenda().get(3))
+        assert.equals(collarDivino, rolando.agenda().get(4))
+        console.println(rolando.agenda())
+    }
 }

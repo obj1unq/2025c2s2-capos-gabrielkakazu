@@ -1,10 +1,15 @@
 object rolando {
     const mochila = #{}
     var property capacidadMochila = 2
+    //var inmueble = castilloPiedra
+    const agenda = []
+
+    method agenda() {return agenda}
 
     method mochila() { return mochila}
 
     method encuentra(artefacto){
+        agenda.add(artefacto)
         if (self.puedeRecolectar(artefacto)){
             self.recolecta(artefacto)    
         }
@@ -29,6 +34,14 @@ object rolando {
             self.mochila().remove(objeto)}
     }
 
+    method posee() {
+        return self.mochila().union(castilloPiedra.arcas())
+    }
+
+    method siPosee(objeto) {
+        return self.posee().contains(objeto)
+    }
+
 }
 
 // LUGAR
@@ -51,5 +64,9 @@ object libroHechizos{
 }
 
 object collarDivino{
+
+}
+
+object armaduraValyria{
 
 }
