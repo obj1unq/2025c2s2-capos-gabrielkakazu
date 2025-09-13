@@ -123,5 +123,17 @@ object armaduraValyria{
 }
 
 object libroHechizos{
+    var usos = 0
+
+    method usos() {return usos}
+
+    method usar() {
+        usos += 1
+    }
+
+    method aportePoder(usuario) {
+        return 6
+    }
+
 
 }

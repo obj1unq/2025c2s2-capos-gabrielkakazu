@@ -76,5 +76,34 @@ describe "Ejercicio 2 mensajes con bloques" {
     assert.equals(6, armaduraValyria.aportePoder(rolando))
     assert.equals(6, collarDivino.aportePoder(rolando))
 
+    
+  }
+
+  test "ejemplo poder de pelea" {
+    rolando.poderBase(5)
+    rolando.capacidadMochila(3)
+    rolando.encuentra(espadaDestino)
+    rolando.encuentra(armaduraValyria)
+    rolando.encuentra(collarDivino)
+    assert.equals(19, rolando.poder())
+  }
+
+  test "2.2 libro de hechizos" {
+    rolando.poderBase(5)
+    rolando.encuentra(libroHechizos)
+    castilloPiedra.arcas().union(#{espadaDestino, armaduraValyria, collarDivino})
+    libroHechizos.contine(bendicion)
+    libroHechizos.contine(invisibilidad)
+    libroHechizos.contine(invocacion)
+    assert.equals(4, libroHechizos.aportePoder(rolando))
+    //1era batalla
+    rolando.batalla()
+    assert.equals(6, libroHechizos.aportePoder(rolando))
+    //2da batalla
+    rolando.batalla()
+    assert.equals(7, libroHechizos.aportePoder(rolando))
+    //3era battalla
+    rolando.batalla()
+    assert.equals(0, libroHechizos.aportePoder(rolando))
   }
 }
