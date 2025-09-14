@@ -125,15 +125,53 @@ object armaduraValyria{
 object libroHechizos{
     var usos = 0
 
+    const hechizos = []
+
+    const primerHechizo = hechizo.first()
+
+    method contiene(hechizo) {
+        hechizos.add(hechizo)
+    }
+
     method usos() {return usos}
 
     method usar() {
-        usos += 1
+        return if (self.validarHechizo()) {
+            usos += 1
+            primerHechizo.activar(self)
+            hechizos.remove(primerHechizo)
+        } 
     }
+
+    method validarHechizo() {return not hechizos.isEmpty()}
 
     method aportePoder(usuario) {
-        return 6
+        return 0
     }
 
+
+}
+
+// HECHIZOS
+
+object bendicion {
+
+
+        method activar(usuario) {
+
+        }
+
+
+        method aportePoder(usuario) {
+        return 0
+    }
+
+}
+
+object invisibilidad {
+
+}
+
+object invocacion {
 
 }

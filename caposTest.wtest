@@ -92,9 +92,9 @@ describe "Ejercicio 2 mensajes con bloques" {
     rolando.poderBase(5)
     rolando.encuentra(libroHechizos)
     castilloPiedra.arcas().union(#{espadaDestino, armaduraValyria, collarDivino})
-    libroHechizos.contine(bendicion)
-    libroHechizos.contine(invisibilidad)
-    libroHechizos.contine(invocacion)
+    libroHechizos.contiene(bendicion)
+    libroHechizos.contiene(invisibilidad)
+    libroHechizos.contiene(invocacion)
     assert.equals(4, libroHechizos.aportePoder(rolando))
     //1era batalla
     rolando.batalla()
