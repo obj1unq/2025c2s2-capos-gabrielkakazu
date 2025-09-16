@@ -2,7 +2,6 @@
 object rolando {
     const mochila = #{}
     const agenda = []
-
     var property capacidadMochila = 2
     var property morada = castilloPiedra
     var property poderBase = 5
@@ -62,6 +61,12 @@ object rolando {
     method puedeConquistar(ubicacion) {
         return self.puedeVencer(ubicacion.dueño())
     }
+
+    method esPoderoso(enemigos){
+        return enemigos.all({enemigo => self.puedeVencer(enemigo)})
+    // input es un conjunto de enemigos, output es Bool
+    }
+    
 
 }
 
