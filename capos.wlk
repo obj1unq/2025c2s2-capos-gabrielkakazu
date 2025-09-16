@@ -1,10 +1,10 @@
+// PJS
 object rolando {
     const mochila = #{}
     const agenda = []
 
     var property capacidadMochila = 2
     var property morada = castilloPiedra
-        
     var property poderBase = 5
 
     method agenda() {return agenda}
@@ -55,12 +55,66 @@ object rolando {
         poderBase += 1
     }
 
+    method puedeVencer(oponente) {
+        return oponente.poder() < self.poder()
+    }
+
+    method puedeConquistar(ubicacion) {
+        return self.puedeVencer(ubicacion.dueño())
+    }
+
 }
+
+object caterina{
+    var property morada = fortalezaAcero
+    method poder() {return 28}
+
+}
+object archibaldo{
+    var property morada = palacioMarmol
+    method poder() {return 16}
+}
+
+object astra{
+    var property morada = torreMarfil
+    method poder() {return 14}
+}
+
 
 // LUGAR
 object castilloPiedra{
 
     var property dueño = rolando
+    const arcas = #{}
+    method arcas() {return arcas}
+
+    method incorpora(artefacto) {
+        arcas.add(artefacto)
+    }
+}
+
+object palacioMarmol{
+    var property dueño = archibaldo
+    const arcas = #{}
+    method arcas() {return arcas}
+
+    method incorpora(artefacto) {
+        arcas.add(artefacto)
+    }
+}
+
+object torreMarfil{
+    var property dueño = astra
+    const arcas = #{}
+    method arcas() {return arcas}
+
+    method incorpora(artefacto) {
+        arcas.add(artefacto)
+    }
+}
+
+object fortalezaAcero{
+    var property dueño = caterina
     const arcas = #{}
     method arcas() {return arcas}
 

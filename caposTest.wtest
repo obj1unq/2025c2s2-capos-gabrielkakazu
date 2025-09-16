@@ -108,4 +108,19 @@ describe "Ejercicio 2 mensajes con bloques" {
     rolando.batalla()
     assert.equals(0, libroHechizos.aportePoder(rolando))
   }
+
+  test "2.3 enemigos" {
+    rolando.poderBase(5)
+    rolando.capacidadMochila(3)
+    rolando.encuentra(espadaDestino)
+    rolando.encuentra(armaduraValyria)
+    rolando.encuentra(collarDivino)
+    assert.equals(19, rolando.poder())
+    assert.that(rolando.puedeVencer(archibaldo))
+    assert.that(rolando.puedeVencer(astra))
+    assert.that(rolando.puedeConquistar(palacioMarmol))
+    assert.that(rolando.puedeConquistar(torreMarfil))
+    const moradas = #{fortalezaAcero, palacioMarmol, torreMarfil}
+    
+  }
 }
