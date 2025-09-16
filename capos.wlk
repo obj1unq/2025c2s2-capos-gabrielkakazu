@@ -1,8 +1,10 @@
 object rolando {
     const mochila = #{}
-    var property capacidadMochila = 2
-    //var inmueble = castilloPiedra
     const agenda = []
+
+    var property capacidadMochila = 2
+    var property morada = castilloPiedra
+        
     var property poderBase = 5
 
     method agenda() {return agenda}
@@ -14,7 +16,6 @@ object rolando {
         if (self.puedeRecolectar(artefacto)){
             self.recolecta(artefacto)    
         }
-
     }
 
     method puedeRecolectar(artefacto) {
@@ -36,8 +37,8 @@ object rolando {
     }
 
     method posee() {
-        return self.mochila().union(castilloPiedra.arcas())
-    }
+        return mochila + morada.arcas()
+    } //+ operador sobrecargado
 
     method siPosee(objeto) {
         return self.posee().contains(objeto)
@@ -50,7 +51,7 @@ object rolando {
     }
 
     method batalla() {
-        mochila.forEach({artefacto => artefacto.usar()})
+        mochila.forEach({artefacto => artefacto.usar(self)})
         poderBase += 1
     }
 
@@ -58,6 +59,8 @@ object rolando {
 
 // LUGAR
 object castilloPiedra{
+
+    var property dueño = rolando
     const arcas = #{}
     method arcas() {return arcas}
 
@@ -72,7 +75,7 @@ object espadaDestino{
 
     method usos() {return usos}
 
-    method usar() {
+    method usar(usuario) {
         usos += 1
     }
 
@@ -83,7 +86,6 @@ object espadaDestino{
                 usuario.poderBase() / 2
             }
     }
-
 }
 
 object collarDivino{
@@ -91,7 +93,7 @@ object collarDivino{
 
     method usos() {return usos}
 
-    method usar() {
+    method usar(usuario) {
         usos += 1
     }
 
@@ -111,15 +113,13 @@ object armaduraValyria{
 
     method usos() {return usos}
 
-    method usar() {
+    method usar(usuario) {
         usos += 1
     }
 
     method aportePoder(usuario) {
         return 6
     }
-
-
 }
 
 object libroHechizos{
@@ -127,7 +127,7 @@ object libroHechizos{
 
     const hechizos = []
 
-    const primerHechizo = hechizo.first()
+    method validarHechizo() {return not hechizos.isEmpty()}
 
     method contiene(hechizo) {
         hechizos.add(hechizo)
@@ -135,43 +135,49 @@ object libroHechizos{
 
     method usos() {return usos}
 
-    method usar() {
+    method usar(usuario) {
         return if (self.validarHechizo()) {
             usos += 1
-            primerHechizo.activar(self)
-            hechizos.remove(primerHechizo)
+            hechizos.remove(hechizos.first())
         } 
     }
 
-    method validarHechizo() {return not hechizos.isEmpty()}
-
     method aportePoder(usuario) {
-        return 0
+        if (self.validarHechizo()){
+            return hechizos.first().aportePoder(usuario)
+        } else {
+            return 0
+        }
     }
-
-
 }
+
 
 // HECHIZOS
 
 object bendicion {
 
-
-        method activar(usuario) {
-
-        }
-
-
-        method aportePoder(usuario) {
-        return 0
+    method aportePoder(usuario) {
+        return 4
     }
-
 }
 
 object invisibilidad {
 
+        method aportePoder(usuario) {
+            return usuario.poderBase()
+        }
 }
 
 object invocacion {
 
+    method aportePoder(usuario) {
+        const deposito = usuario.morada().arcas().asList()
+        if (deposito.isEmpty()) {
+            return 0
+        } else {
+            return deposito.map({
+                artefacto => artefacto.aportePoder(usuario) }
+                ).max()
+        }
+    }
 }
