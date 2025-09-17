@@ -69,7 +69,7 @@ object rolando {
 
     method tieneArtefactoFatal(artefactos, adversario){
          return artefactos.any({artefacto =>
-             (self.poderBase() + artefacto.aportePoder(self))> adversario.poder() })
+             (artefacto.aportePoder(self))> adversario.poder() })
     }
 
  /*   method obtenerArtefactoFatal(artefactos, adversario){

@@ -136,7 +136,7 @@ describe "Ejercicio 2 mensajes con bloques" {
   }
 
   test "2.5 artefacto fatal" {
-    rolando.poderBase(10)
+    rolando.poderBase(15)
     rolando.capacidadMochila(3)
     rolando.encuentra(espadaDestino)
     rolando.encuentra(armaduraValyria)
