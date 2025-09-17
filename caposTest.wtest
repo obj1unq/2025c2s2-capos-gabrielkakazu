@@ -1,0 +1,147 @@
+import capos.*
+
+describe "Tests Ejercicio 1"{
+    test "1.1 Rolando"{
+        rolando.encuentra(espadaDestino)
+        assert.that(rolando.tiene(espadaDestino))
+        rolando.encuentra(libroHechizos)
+        assert.that(rolando.tiene(libroHechizos))
+        rolando.encuentra(collarDivino)
+        assert.notThat(rolando.tiene(collarDivino))
+        console.println("rolando tiene" + rolando.mochila())
+    }
+
+    test "1.2 Castillo de piedra" {
+        rolando.encuentra(espadaDestino)
+        rolando.encuentra(libroHechizos)
+        rolando.llegaA(castilloPiedra)
+        assert.equals(#{espadaDestino, libroHechizos}, castilloPiedra.arcas())
+        assert.that(rolando.mochila().isEmpty())
+        rolando.encuentra(collarDivino)
+        assert.that(rolando.tiene(collarDivino))
+        rolando.llegaA(castilloPiedra)
+        assert.equals(#{espadaDestino, libroHechizos, collarDivino}, castilloPiedra.arcas())
+    }
+
+    test "1.3 posesiones de Rolando" {
+        castilloPiedra.incorpora(collarDivino)
+        castilloPiedra.incorpora(espadaDestino)
+        rolando.encuentra(armaduraValyria)
+        assert.equals(#{collarDivino, espadaDestino, armaduraValyria}, 
+                    rolando.posee())
+        assert.equals(3, rolando.posee().size())
+    }
+
+    test "1.4 historia de encuentros" {
+        rolando.encuentra(espadaDestino)
+        rolando.encuentra(libroHechizos)
+        rolando.encuentra(collarDivino)
+        rolando.llegaA(castilloPiedra)
+        rolando.encuentra(armaduraValyria)
+        rolando.encuentra(collarDivino)
+        assert.equals(espadaDestino, rolando.agenda().first())
+        assert.equals(libroHechizos, rolando.agenda().get(1))
+        assert.equals(collarDivino, rolando.agenda().get(2))
+        assert.equals(armaduraValyria, rolando.agenda().get(3))
+        assert.equals(collarDivino, rolando.agenda().get(4))
+        console.println("rolando se encontró con" + rolando.agenda())
+    }
+
+    
+}
+
+describe "Ejercicio 2 mensajes con bloques" {
+  test "2.1 comportamiento de los artefactos" {
+    rolando.poderBase(5)
+    rolando.capacidadMochila(3)
+    rolando.encuentra(espadaDestino)
+    rolando.encuentra(armaduraValyria)
+    rolando.encuentra(collarDivino)
+    //1era batalla
+    rolando.batalla()
+    assert.equals(6, rolando.poderBase())
+    assert.equals(3, espadaDestino.aportePoder(rolando))
+    assert.equals(6, armaduraValyria.aportePoder(rolando))
+    assert.equals(3, collarDivino.aportePoder(rolando))
+    //2da batalla
+    rolando.batalla()
+    assert.equals(7, rolando.poderBase())
+    assert.equals(3.5, espadaDestino.aportePoder(rolando))
+    assert.equals(6, armaduraValyria.aportePoder(rolando))
+    assert.equals(5, collarDivino.aportePoder(rolando))
+    //3era batalla
+    rolando.batalla()
+    assert.equals(8, rolando.poderBase())
+    assert.equals(4, espadaDestino.aportePoder(rolando))
+    assert.equals(6, armaduraValyria.aportePoder(rolando))
+    assert.equals(6, collarDivino.aportePoder(rolando))
+
+    
+  }
+
+  test "ejemplo poder de pelea" {
+    rolando.poderBase(5)
+    rolando.capacidadMochila(3)
+    rolando.encuentra(espadaDestino)
+    rolando.encuentra(armaduraValyria)
+    rolando.encuentra(collarDivino)
+    assert.equals(19, rolando.poder())
+  }
+
+  test "2.2 libro de hechizos" {
+    rolando.poderBase(5)
+    rolando.encuentra(libroHechizos)
+    castilloPiedra.incorpora(espadaDestino) 
+    castilloPiedra.incorpora(armaduraValyria) 
+    castilloPiedra.incorpora(collarDivino)
+    libroHechizos.contiene(bendicion)
+    libroHechizos.contiene(invisibilidad)
+    libroHechizos.contiene(invocacion)
+    assert.equals(4, libroHechizos.aportePoder(rolando))
+    //1era batalla
+    rolando.batalla()
+    assert.equals(6, libroHechizos.aportePoder(rolando))
+    //2da batalla
+    rolando.batalla()
+    assert.equals(7, libroHechizos.aportePoder(rolando))
+    //3era battalla
+    rolando.batalla()
+    assert.equals(0, libroHechizos.aportePoder(rolando))
+  }
+
+  test "2.3 enemigos" {
+    rolando.poderBase(5)
+    rolando.capacidadMochila(3)
+    rolando.encuentra(espadaDestino)
+    rolando.encuentra(armaduraValyria)
+    rolando.encuentra(collarDivino)
+    assert.equals(19, rolando.poder())
+    assert.that(rolando.puedeVencer(archibaldo))
+    assert.that(rolando.puedeVencer(astra))
+    assert.that(rolando.puedeConquistar(palacioMarmol))
+    assert.that(rolando.puedeConquistar(torreMarfil))
+    const moradas = #{fortalezaAcero, palacioMarmol, torreMarfil}
+
+  }
+
+  test "2.4 poderoso" {
+    rolando.capacidadMochila(3)
+    rolando.encuentra(espadaDestino)
+    rolando.encuentra(armaduraValyria)
+    rolando.encuentra(collarDivino)
+    const enemigos = #{archibaldo, caterina, astra}
+    assert.notThat(rolando.esPoderoso(enemigos))
+    rolando.poderBase(10)
+    assert.that(rolando.esPoderoso(enemigos))
+  }
+
+  test "2.5 artefacto fatal" {
+    rolando.poderBase(15)
+    rolando.capacidadMochila(3)
+    rolando.encuentra(espadaDestino)
+    rolando.encuentra(armaduraValyria)
+    rolando.encuentra(collarDivino)
+    assert.that(rolando.tieneArtefactoFatal(rolando.mochila(), astra))
+    assert.notThat(rolando.tieneArtefactoFatal(rolando.mochila(), caterina))
+  }
+}
