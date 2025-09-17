@@ -66,8 +66,19 @@ object rolando {
         return enemigos.all({enemigo => self.puedeVencer(enemigo)})
     // input es un conjunto de enemigos, output es Bool
     }
-    
 
+    method tieneArtefactoFatal(artefactos, adversario){
+         return artefactos.any({artefacto =>
+             (self.poderBase() + artefacto.aportePoder(self))> adversario.poder() })
+    }
+
+ /*   method obtenerArtefactoFatal(artefactos, adversario){
+        if not self.tieneArtefactoFatal(artefactos, adversario) {
+            self.error(self + "no tiene artefacto fatal para vencer a " + adversario  )
+        } else {artefactos.find({artefacto =>
+             (self.poderBase() + artefacto.aportePoder(self))> adversario.poder() })
+        } 
+    }*/
 }
 
 object caterina{

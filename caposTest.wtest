@@ -134,4 +134,14 @@ describe "Ejercicio 2 mensajes con bloques" {
     rolando.poderBase(10)
     assert.that(rolando.esPoderoso(enemigos))
   }
+
+  test "2.5 artefacto fatal" {
+    rolando.poderBase(10)
+    rolando.capacidadMochila(3)
+    rolando.encuentra(espadaDestino)
+    rolando.encuentra(armaduraValyria)
+    rolando.encuentra(collarDivino)
+    assert.that(rolando.tieneArtefactoFatal(rolando.mochila(), astra))
+    assert.notThat(rolando.tieneArtefactoFatal(rolando.mochila(), caterina))
+  }
 }
